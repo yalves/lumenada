@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumenaipsum</title>
+    <style>
+        html, body {
+            margin: 0;
+        }
+
+        .content {
+            display: flex;
+            place-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            place-content: center;
+            flex-direction: column;
+            width: 65vw;
+        } 
+
+        .ui {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .flip {
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+
+        button {
+            margin: 0px 40px;
+            font-size: 3em;
+        }
+
+        span {
+            margin: 0px 10px;
+            font-style: italic;
+            font-size: 1.3em;
+            text-align: center;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="container">
+            <div class="ui">
+                <img src="lumenajpg">
+                <button onclick="fetchQuote()">lumenar</button>
+                <img src="lumenajpg" class="flip">
+            </div>
+            <span id="quote"></span>
+        </div>
+    </div>
+
+    <script>
+        const endpoint = 'https://lumenaipsum.azurewebsites.net/Lumena'
+        async function fetchQuote() {
+            console.log('fetching')
+            const config = {
+                method: 'GET',
+                headers: new Headers({
+                    'Accept': 'text/plain'
+                })
+            }
+
+            const response = await fetch(endpoint, config)
+            const text = await response.text()
+
+            document.getElementById('quote').innerText = text;
+        }
+    </script>
+</body>
+</html>
